@@ -1,1 +1,1 @@
-web: gunicorn app:app
+web: gunicorn twitter-dripper.wsgi --log-file -
