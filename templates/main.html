@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    	<meta charset="utf-8">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="Web app for Kukai Nakahata and Andy Celdo">
+		<meta name="author" content="Kukai Nakahata, Andy Celdo">
+		<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+		<!-- fonts awsome js -->
+		<script src="https://use.fontawesome.com/releases/v5.14.0/js/all.js" data-auto-replace-svg="nest"></script>
+		<!-- my regular css and js-->
+		<link rel="stylesheet" type="text/css", href="{{ url_for('static',filename='styles/mainpage.css') }}">
+
+
+	<title>Twitter-dripper app</title>
+  </head>
+  <body>
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="index.js" type="text.javascript"></script>
+
+
+	<div class="wrapper">
+		<div id="content" class="container col-lg-10">
+			<nav id="topnavbar" class="navbar navbar-expand-lg row">
+
+				<h3> this is a nav bar with a button link to the github page</h3>
+
+				<button type="button" class="btn btn-info" title="Jump To Github">
+					<a href="#" >
+						<i class="fab fa-github iconSize1" aria-hidden="true"></i>
+						</a>
+				</button>
+			</nav>
+
+			<h1> Hello World </h1>
+			<form action="{{ url_for('main') }}" method="POST" id="input_space">
+				<fieldset>
+					<legend>Input Text:</legend>
+					Type your text in here:
+					<input name="user_input_text" type="text" required>
+					<input type="submit" value="Submit">
+				</fieldset>
+			</form>
+
+			<div class="alert alert-success" id="output_space">
+				{% if input_text %}
+					<h4> Classification for: {{ input_text }} </h4>
+				{% endif %}
+
+				{% if parsed_text %}
+					<h4> After parsing: {{ parsed_text }} </h4>
+				{% endif %}
+
+				{% if result %}
+					<p> Model predicted: {{ result }} </p>
+				{% endif %}
+
+				{% if precent_democrat %}
+					<p> Percent democrat: {{ precent_democrat }} </p>
+				{% endif %}
+
+				{% if precent_republican %}
+					<p> Percent republican: {{ precent_republican }} </p>
+				{% endif %}
+			</div>
+			 <p>
+				<a href="{{ url_for('classify_image') }} " class="btn btn-secondary my-4">Classify Image Page</a>
+				<a href="{{ url_for('images') }} " class="btn btn-secondary my-4">More Images Page</a>
+				<a href="{{ url_for('bootstrap') }} " class="btn btn-secondary my-4">Pretty Boostrap Page</a>
+
+			 </p>
+
+
+
+		</div>
+	</div>
+
+
+
+  </body>
+</html>
