@@ -8,7 +8,15 @@
     <title>Twitter Classifier</title>
   </head>
   <body class = "bg-info">
+	<style>
+		#history_table tr th {
+			border: 1px solid black;
+		}
 
+		#history_table tr td {
+			border: 1px solid black;
+		}
+</style>
   	 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
   <a class="navbar-brand" href="{{url_for('main')}}">Main App</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,7 +45,7 @@
 		    </fieldset>
 		</form>
 		<br>
-	
+
 		<div class="alert alert-success">
 			{% if input_text %}
 				<h4> Classification for: {{ input_text }} </h4>
@@ -48,14 +56,42 @@
 		    {% endif %}
 
 		    {% if bad_percent %}
-		    	<p> Bad Post Percentage: {{ bad_percent }}% </p>		    	
+		    	<p> Bad Post Percentage: {{ bad_percent }}% </p>
 		    {% endif %}
 
 		    {% if good_percent %}
 		    	<p> Good Post Percentage: {{ good_percent }}% </p>
 		    {% endif %}
 		</div>
-		   
+
+
+
+		<div class="alert alert-success col-6" id="txt_history" style="align-items: center;">
+			History
+			<table id="history_table" style="border: 1px solid black;min-width: 40%;max-width: 80%;margin: 0 auto;">
+				<tr>
+					<th>{% if r11 %}Text{% endif %}</th>
+					<th>{% if r11 %}Score{% endif %}</th>
+					<th>{% if r11 %}Evaluation{% endif %}</th>
+				</tr>
+				<tr>
+					<td>{% if r11 %}{{ r11 }}{% endif %}</td>
+					<td>{% if r12 %}{{ r12 }}{% endif %}</td>
+					<td>{% if r13 %}{{ r13 }}{% endif %}</td>
+				</tr>
+				<tr>
+					<td>{% if r21 %}{{ r21 }}{% endif %}</td>
+					<td>{% if r22 %}{{ r22 }}{% endif %}</td>
+					<td>{% if r23 %}{{ r23 }}{% endif %}</td>
+				</tr>
+				<tr>
+					<td>{% if r31 %}{{ r31 }}{% endif %}</td>
+					<td>{% if r32 %}{{ r32 }}{% endif %}</td>
+					<td>{% if r33 %}{{ r33 }}{% endif %}</td>
+				</tr>
+			</table>
+		</div>
+
 
 	 </div>
   </body>

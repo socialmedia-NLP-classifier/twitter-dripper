@@ -38,22 +38,32 @@ def text_pipeline2(a):
     return a
 ###################################################
 
+
+
+history = ["-", "-", "-"]
+history_classification = ["-", "-", "-"]
+history_score = ["-", "-", "-"]
+
+
 @app.route('/', methods=['GET', 'POST'])
 def main():
-    
+    global history
+    global history_classification
+    global history_score
+
     if flask.request.method == 'GET':
         return flask.render_template('main.html')
-    
+
     if flask.request.method == 'POST':
         # Get the input from the user.
         user_input_text = flask.request.form['user_input_text']
-   
+
         # Turn the text into numbers using our vectorizer
         X = vectorizer.transform([user_input_text])
-        
-        # Make a prediction 
+
+        # Make a prediction
         predictions = model.predict(X)
-        
+
         # Get the first and only value of the prediction.
         prediction = predictions[0]
 
@@ -69,26 +79,44 @@ def main():
         # The second element in predicted probas is % republican
         good_comment = predicted_proba[1]
 
-        if bad_comment > 0.65:
-            bad_comment *= 100;
-            bad_comment= round(bad_comment, 2)
-            good_comment *= 100;
-            good_comment = round(good_comment, 2)
-        elif good_comment > 0.65:
-            bad_comment *= 100;
-            bad_comment = round(bad_comment, 2)
-            good_comment *= 100;
-            good_comment = round(good_comment, 2)
+        good_p = good_comment.copy()
+        bad_p = 1-good_p
+
+
+
+        if bad_p > 0.65:
+            prediction = "bad"
+        elif good_p > 0.65:
+            prediction = "good"
         else:
-            bad_comment = "Undecided"
-            good_comment = "Undecided"
+            prediction = "Undecided"
 
 
-        return flask.render_template('main.html', 
+        history.append(user_input_text)
+        history_classification.append(prediction)
+        history_score.append(str(good_p)[:5])
+        if len(history) >  3:
+            history = history[1:]
+            history_classification = history_classification[1:]
+            history_score = history_score[1:]
+
+
+        return flask.render_template('main.html',
             input_text=user_input_text,
             result=prediction,
-            bad_percent=bad_comment,
-            good_percent=good_comment)
+            bad_percent=bad_p,
+            good_percent=good_p,
+            r11 = history[2],
+            r12 = history_score[2],
+            r13 = history_classification[2],
+            r21 = history[1],
+            r22 = history_score[1],
+            r23 = history_classification[1],
+            r31 = history[0],
+            r32 = history_score[0],
+            r33 = history_classification[0]
+            )
+
 
 
 @app.route('/bootstrap_twitter/')
