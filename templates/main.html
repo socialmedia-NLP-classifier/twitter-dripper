@@ -68,6 +68,7 @@
 
 		<div class="alert alert-success col-6" id="txt_history" style="align-items: center;">
 			History
+			{% if r11 %}
 			<table id="history_table" style="border: 1px solid black;min-width: 40%;max-width: 80%;margin: 0 auto;">
 				<tr>
 					<th>{% if r11 %}Text{% endif %}</th>
@@ -90,6 +91,8 @@
 					<td>{% if r33 %}{{ r33 }}{% endif %}</td>
 				</tr>
 			</table>
+			{% endif %}
+
 		</div>
 
 
